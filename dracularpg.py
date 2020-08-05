@@ -5,13 +5,38 @@ import random
 from subprocess import call
 from random import randint
 
-hunters = [{'name' : 'Van Helsing', 'health' : 15, 'damage' : '1d8'},
-           {'name' : 'Vampire hunter', 'health' : 10, 'damage' : '1d4'},
-           {'name' : 'Vampire Succubus', 'health' : 5, 'damage' : '1d10'}]
+
+
+hunters = [
+  {
+    "name": "Van Helsing",
+    "health": 15,
+    "damage": "1d8"
+  },
+  {
+    "name": "Vampire hunter",
+    "health": 10,
+    "damage": "1d4"
+  },
+  {
+    "name": "Vampire Succubus",
+    "health": 5,
+    "damage": "1d10"
+  }
+]
+
 player_health = 25
 inventory = []
-spells = [{'name' : 'Hypnotize', 'damage' : '2d6'},
-          {'name' : 'Drain', 'damage' : '5d8'}]
+spells = [
+ {
+  'name' : 'Hypnotize',
+  'damage' : '2d6'
+ },
+ {
+    'name' : 'Drain',
+    'damage' : '5d8'
+ }
+]
 
 spell_book = []
 
@@ -78,6 +103,7 @@ def combat():
                 print(f"You hit a {hunters[foe_ID]['name']} for {player_damage} damage!")
             if move[1] not in inventory:
                 print(f"There is no {move[1]} in your inventory!")
+
 def ReplaceItem(item,changeto, inventory):
     inventory = inventory
     inventory.remove(item)
@@ -95,30 +121,29 @@ def random_encounter():
 
 rooms = {
 
-    'Main Entrance': {
+       'Main Entrance': {
         'south': 'Observatory ',
         'east': 'Chapel',
         'item': 'vile of blood'
-        'tele': '0',
-        'desc': 'This is the entrance to the castle, be careful it has been a long time since you have been home',
-    },
+#        'tele': '0',
+ #       'desc': 'This is the entrance to the castle, be careful it has been a long time since you have been home'
+        },
 
-    'Observatory ': {
+        'Observatory ' : {
         'north': 'Main Entrance',
         'item': 'Vampire hunter',
         'spells': 'Silver Haze'
-        'tele': '0',    # Ask why the error invalid syntax keeps popping up fr this
-    },
-    'Chapel': {
+#        'tele': '0',    # Ask why the error invalid syntax keeps popping up fr this
+        },
+        'Chapel': {
         'west': 'Main Entrance',
         'south': 'Clock Tower',
         'item': 'coffin'
-        'tele': '0',
-    },
-    'Clock Tower': {
+#        'tele': '0',
+        }
+        'Clock Tower' : {
         'north': 'Chapel'
-        'tele': '0',
-    }
+        }
 }
 
 # start the player in the Main Entrance
