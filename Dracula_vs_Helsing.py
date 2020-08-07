@@ -37,7 +37,7 @@ spell = [
     'damage' : '5d8'
  }
 ]
-
+find = {'drain': {'damage': '5d8'}}
 spellbook = []
 
 
@@ -61,6 +61,7 @@ def showStatus():
     print('You are in the ' + currentRoom)
     # print the current inventory
     print('Inventory : ' + str(inventory))
+    print('spellbook: ' + str(spellbook))
     # print an item if there is one
     if "item" in rooms[currentRoom]:
         print('You see a ' + rooms[currentRoom]['item'])
@@ -98,14 +99,17 @@ def combat():
     while True:
         print(f"Round {round}")
         print("The Players Health is: [" + str(player_health) + "]")
-        print("The Monsters Health is: [" + str(foe_health) + "]")
+        print("The Hunters Health is: [" + str(foe_health) + "]")
 
         print("Would you like to Cast your [spell] or use your potion [item]")
         move =  input().lower().split()
         if move[0] == 'cast':  #
-            if move[1] in spell_book:  # checks if weapon is in your spellbook
-                player_damage = dice.roll(armory[move[1]]['damage'])
-                print(f"You hit a {hunters[foe_ID]['name']} for {player_damage} damage!")
+            if move[1] in spellbook:  # checks if weapon is in your spellbook
+              if move[1].lower() == 'drain':
+                 player_damage = dice.roll(find[move[1]]['damage'])
+                 print(f"You hit a {hunters[foe_ID]['name']} for {player_damage} damage!")
+                 print("The Hunters Health is: [" + str(foe_health) - str(player_damage) + "]")
+
             if move[1] not in inventory:
                 print(f"There is no {move[1]} in your inventory!")
 
@@ -139,15 +143,15 @@ rooms = {
     "North": "Courtyard",
     "south": "Observatory",
     "east": "Chapel",
-    "item": "dirt",
+    "item": "pile of dirt",
     "tele": "5",
-    "spell": "Drain"
+    "spell": "drain"
 
   },
   "Observatory": {
     "north": "Main Entrance",
     "east": "Clock Tower",
-    "spell": "Hypnotize",
+    "spell": "hypnotize",
     "tele": "0"
   },
   "Chapel": {
